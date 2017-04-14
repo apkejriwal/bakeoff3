@@ -195,10 +195,60 @@ void mousePressed()
   if (didMouseClick(200, 200, 80, 80) && currentTyped.length()>0) {
     currentTyped = currentTyped.substring(0, currentTyped.length()-1);
   }
-  
+
   if (didMouseClick(560, 200, 80, 80)) {
     currentTyped += ' ';
   }
+
+  //checking for group buttons 
+
+  if (didMouseClick(xPosButtons.get(0), yPosGroupButton, xsizeOfGroupButton, ysizeOfGroupButton))
+  {
+    currentFirstLetter = 'a';
+    currentSecondLetter = 'b';
+    currentThirdLetter = 'c';
+    currentFourthLetter = 'd';
+    currentFifthLetter = 'e';
+  }
+
+  else if (didMouseClick(xPosButtons.get(1), yPosGroupButton, xsizeOfGroupButton, ysizeOfGroupButton))
+  {
+    currentFirstLetter = 'f';
+    currentSecondLetter = 'g';
+    currentThirdLetter = 'h';
+    currentFourthLetter = 'i';
+    currentFifthLetter = 'j';
+  }
+
+  else if (didMouseClick(xPosButtons.get(2), yPosGroupButton, xsizeOfGroupButton, ysizeOfGroupButton))
+  {
+    currentFirstLetter = 'k';
+    currentSecondLetter = 'l';
+    currentThirdLetter = 'm';
+    currentFourthLetter = 'n';
+    currentFifthLetter = 'o';
+  }
+
+  else if (didMouseClick(xPosButtons.get(3), yPosGroupButton, xsizeOfGroupButton, ysizeOfGroupButton))
+  {
+    currentFirstLetter = 'p';
+    currentSecondLetter = 'q';
+    currentThirdLetter = 'r';
+    currentFourthLetter = 's';
+    currentFifthLetter = 't';
+  }
+
+  else if (didMouseClick(xPosButtons.get(4), yPosGroupButton, xsizeOfGroupButton, ysizeOfGroupButton))
+  {
+    currentFirstLetter = 'u';
+    currentSecondLetter = 'v';
+    currentThirdLetter = 'w';
+    currentFourthLetter = 'x';
+    currentFifthLetter = 'y';
+  }
+
+
+  //checking for top five letters 
 
   if (didMouseClick(220, 450, 80, 80)) //check if click in first letter button
   {
