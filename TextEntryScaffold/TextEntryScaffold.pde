@@ -18,12 +18,17 @@ char currentThirdLetter = 'c';
 char currentFourthLetter = 'd';
 char currentFifthLetter = 'e';
 
+final float xsizeOfGroupButton = 80;
+final float ysizeOfGroupButton = 50;
+final float yPosGroupButton = 575;
+final float xText = (xsizeOfGroupButton / 2); //arbitrary value of / 5 to account for spacing 
+final float yText = (yPosGroupButton+ysizeOfGroupButton/2) + 5; //arbitrary value of + 5 to account for spacing 
+ArrayList<Integer> xPosButtons = new ArrayList<Integer>();
+
 final int DPIofYourDeviceScreen = 441; //you will need to look up the DPI or PPI of your device to make sure you get the right scale!!
                                       //http://en.wikipedia.org/wiki/List_of_displays_by_pixel_density
 final float sizeOfInputArea = DPIofYourDeviceScreen*1; //aka, 1.0 inches square!
 final int LETTER_STROKE_COLOR = 0;
-//Variables for my silly implementation. You can delete this:
-char currentLetter = 'a';
 
 //You can modify anything in here. This is just a basic implementation.
 void setup()
@@ -35,7 +40,16 @@ void setup()
   size(1000, 1000); //Sets the size of the app. You may want to modify this to your device. Many phones today are 1080 wide by 1920 tall.
   textFont(createFont("Arial", 24)); //set the font to arial 24
   noStroke(); //my code doesn't use any strokes.
+
+   for (int i = 0; i < 5; i++)
+  {
+    int x = 225 + (i*75);
+    xPosButtons.add(x);
+  }
+
 }
+
+
 
 //You can modify anything in here. This is just a basic implementation.
 void draw()
@@ -82,7 +96,6 @@ void draw()
 
     //my draw code
     textAlign(CENTER);
-    text("" + currentLetter, 200+sizeOfInputArea/2, 200+sizeOfInputArea/3); //draw current letter
     fill(255, 0, 0);
     textSize(40);
     rectMode(CENTER);
@@ -124,31 +137,50 @@ void draw()
     text(currentFifthLetter, 580, 500);
     drawBackspace();
     drawSpace();
+
+
+
     rectMode(CORNER);
     //rect(200, 200+sizeOfInputArea/2, sizeOfInputArea/2, sizeOfInputArea/2); //draw left red button
     fill(0, 255, 0);
     textSize(30);
     //rect(200+sizeOfInputArea/2, 200+sizeOfInputArea/2, sizeOfInputArea/2, sizeOfInputArea/2); //draw right green button
+
+    fill(255);
+
+    //drawing five buttons for alphabet
+
+    rect(xPosButtons.get(0), yPosGroupButton, xsizeOfGroupButton, ysizeOfGroupButton); //drag next button
+    rect(xPosButtons.get(1), yPosGroupButton, xsizeOfGroupButton, ysizeOfGroupButton); //drag next button
+    rect(xPosButtons.get(2), yPosGroupButton, xsizeOfGroupButton, ysizeOfGroupButton); //drag next button
+    rect(xPosButtons.get(3), yPosGroupButton, xsizeOfGroupButton, ysizeOfGroupButton); //drag next button
+    rect(xPosButtons.get(4), yPosGroupButton, xsizeOfGroupButton, ysizeOfGroupButton); //drag next button
+
+    fill(0);
+    text("a-e", xPosButtons.get(0) + xText, yText); //draw next label
+    text("f-k", xPosButtons.get(1) + xText, yText);
+    text("l-p", xPosButtons.get(2) + xText, yText);
+    text("q-u", xPosButtons.get(3) + xText, yText);
+    text("v-z", xPosButtons.get(4) + xText, yText);
+
   }
-  
-  
   
 }
 
 void drawSpace() {
-  stroke(LETTER_STROKE_COLOR);   
-  fill(255,0,0);
-  rect(600, 240, 80, 80);
-  fill(0);
-  text("_", 600, 250);
+ stroke(LETTER_STROKE_COLOR);   
+ fill(255,0,0);
+ rect(600, 240, 80, 80);
+ fill(0);
+ text("_", 600, 250);
 }
 
 void drawBackspace() {
-  stroke(LETTER_STROKE_COLOR);   
-  fill(255,0,0);
-  rect(240, 240, 80, 80);
-  fill(0);
-  text("X", 240, 250);
+ stroke(LETTER_STROKE_COLOR);   
+ fill(255,0,0);
+ rect(240, 240, 80, 80);
+ fill(0);
+ text("X", 240, 250);
 }
 
 boolean didMouseClick(float x, float y, float w, float h) //simple function to do hit testing
@@ -159,12 +191,15 @@ boolean didMouseClick(float x, float y, float w, float h) //simple function to d
 void mousePressed()
 {
   println("Mouse X is: " + mouseX + " Mouse Y is " + mouseY);
+
   if (didMouseClick(200, 200, 80, 80) && currentTyped.length()>0) {
     currentTyped = currentTyped.substring(0, currentTyped.length()-1);
   }
+  
   if (didMouseClick(560, 200, 80, 80)) {
     currentTyped += ' ';
   }
+
   if (didMouseClick(220, 450, 80, 80)) //check if click in first letter button
   {
     println("In 1");
