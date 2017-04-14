@@ -122,6 +122,8 @@ void draw()
     text(currentThirdLetter, 420, 500);
     text(currentFourthLetter, 500, 500);
     text(currentFifthLetter, 580, 500);
+    drawBackspace();
+    drawSpace();
     rectMode(CORNER);
     //rect(200, 200+sizeOfInputArea/2, sizeOfInputArea/2, sizeOfInputArea/2); //draw left red button
     fill(0, 255, 0);
@@ -129,6 +131,24 @@ void draw()
     //rect(200+sizeOfInputArea/2, 200+sizeOfInputArea/2, sizeOfInputArea/2, sizeOfInputArea/2); //draw right green button
   }
   
+  
+  
+}
+
+void drawSpace() {
+  stroke(LETTER_STROKE_COLOR);   
+  fill(255,0,0);
+  rect(600, 240, 80, 80);
+  fill(0);
+  text("_", 600, 250);
+}
+
+void drawBackspace() {
+  stroke(LETTER_STROKE_COLOR);   
+  fill(255,0,0);
+  rect(240, 240, 80, 80);
+  fill(0);
+  text("X", 240, 250);
 }
 
 boolean didMouseClick(float x, float y, float w, float h) //simple function to do hit testing
@@ -139,7 +159,12 @@ boolean didMouseClick(float x, float y, float w, float h) //simple function to d
 void mousePressed()
 {
   println("Mouse X is: " + mouseX + " Mouse Y is " + mouseY);
-
+  if (didMouseClick(200, 200, 80, 80) && currentTyped.length()>0) {
+    currentTyped = currentTyped.substring(0, currentTyped.length()-1);
+  }
+  if (didMouseClick(560, 200, 80, 80)) {
+    currentTyped += ' ';
+  }
   if (didMouseClick(220, 450, 80, 80)) //check if click in first letter button
   {
     println("In 1");
