@@ -157,11 +157,12 @@ void draw()
     rect(xPosButtons.get(4), yPosGroupButton, xsizeOfGroupButton, ysizeOfGroupButton); //drag next button
 
     fill(0);
-    text("a-e", xPosButtons.get(0) + xText, yText); //draw next label
-    text("f-k", xPosButtons.get(1) + xText, yText);
-    text("l-p", xPosButtons.get(2) + xText, yText);
-    text("q-u", xPosButtons.get(3) + xText, yText);
-    text("v-z", xPosButtons.get(4) + xText, yText);
+    textSize(22);
+    text("abcde", xPosButtons.get(0) + xText, yText); //draw next label
+    text("fghij", xPosButtons.get(1) + xText, yText);
+    text("klmno", xPosButtons.get(2) + xText, yText);
+    text("pqrst", xPosButtons.get(3) + xText, yText);
+    text("uvwxy", xPosButtons.get(4) + xText, yText);
 
   }
   
