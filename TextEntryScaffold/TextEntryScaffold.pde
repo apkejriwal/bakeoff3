@@ -12,10 +12,16 @@ float lettersExpectedTotal = 0; //a running total of the number of letters expec
 float errorsTotal = 0; //a running total of the number of errors (when hitting next)
 String currentPhrase = ""; //the current target phrase
 String currentTyped = ""; //what the user has typed so far
+char currentFirstLetter = 'a';
+char currentSecondLetter = 'b';
+char currentThirdLetter = 'c';
+char currentFourthLetter = 'd';
+char currentFifthLetter = 'e';
+
 final int DPIofYourDeviceScreen = 441; //you will need to look up the DPI or PPI of your device to make sure you get the right scale!!
                                       //http://en.wikipedia.org/wiki/List_of_displays_by_pixel_density
 final float sizeOfInputArea = DPIofYourDeviceScreen*1; //aka, 1.0 inches square!
-
+final int LETTER_STROKE_COLOR = 0;
 //Variables for my silly implementation. You can delete this:
 char currentLetter = 'a';
 
@@ -78,9 +84,49 @@ void draw()
     textAlign(CENTER);
     text("" + currentLetter, 200+sizeOfInputArea/2, 200+sizeOfInputArea/3); //draw current letter
     fill(255, 0, 0);
-    rect(200, 200+sizeOfInputArea/2, sizeOfInputArea/2, sizeOfInputArea/2); //draw left red button
+    textSize(40);
+    rectMode(CENTER);
+    //strokeWeight(5);
+    stroke(LETTER_STROKE_COLOR);
+    
+    // 1st letter
+    rect(260, 490, 80, 80);
+    //fill(240, 0, 0, 50);
+    stroke(LETTER_STROKE_COLOR);
+    strokeWeight(5);
+    
+    // 2nd letter 
+    rect(340, 490, 80, 80);
+    //fill(230, 0, 0);
+    stroke(LETTER_STROKE_COLOR);
+    strokeWeight(5);
+
+    
+    // 3rd letter 
+    rect(420, 490, 80, 80);
+    //fill(220, 0, 0);
+    stroke(LETTER_STROKE_COLOR);
+    
+    // 4th letter 
+    rect(500, 490, 80, 80);
+    //fill(220, 0, 0);
+    stroke(LETTER_STROKE_COLOR);
+    
+    // 5th letter 
+    rect(580, 490, 80, 80);
+    //fill(220, 0, 0);
+    stroke(LETTER_STROKE_COLOR);
+    fill(0,0,0);
+    text(currentFirstLetter, 260, 500); 
+    text(currentSecondLetter, 340, 500);
+    text(currentThirdLetter, 420, 500);
+    text(currentFourthLetter, 500, 500);
+    text(currentFifthLetter, 580, 500);
+    rectMode(CORNER);
+    //rect(200, 200+sizeOfInputArea/2, sizeOfInputArea/2, sizeOfInputArea/2); //draw left red button
     fill(0, 255, 0);
-    rect(200+sizeOfInputArea/2, 200+sizeOfInputArea/2, sizeOfInputArea/2, sizeOfInputArea/2); //draw right green button
+    textSize(30);
+    //rect(200+sizeOfInputArea/2, 200+sizeOfInputArea/2, sizeOfInputArea/2, sizeOfInputArea/2); //draw right green button
   }
   
 }
@@ -90,32 +136,32 @@ boolean didMouseClick(float x, float y, float w, float h) //simple function to d
   return (mouseX > x && mouseX<x+w && mouseY>y && mouseY<y+h); //check to see if it is in button bounds
 }
 
-
 void mousePressed()
 {
+  println("Mouse X is: " + mouseX + " Mouse Y is " + mouseY);
 
-  if (didMouseClick(200, 200+sizeOfInputArea/2, sizeOfInputArea/2, sizeOfInputArea/2)) //check if click in left button
+  if (didMouseClick(220, 450, 80, 80)) //check if click in first letter button
   {
-    currentLetter --;
-    if (currentLetter<'_') //wrap around to z
-      currentLetter = 'z';
+    println("In 1");
+    currentTyped+=currentFirstLetter;
   }
-
-  if (didMouseClick(200+sizeOfInputArea/2, 200+sizeOfInputArea/2, sizeOfInputArea/2, sizeOfInputArea/2)) //check if click in right button
+  else if (didMouseClick(300, 450, 80, 80)) //check if click in second letter button
   {
-    currentLetter ++;
-    if (currentLetter>'z') //wrap back to space (aka underscore)
-      currentLetter = '_';
+    println("In 2");
+    currentTyped+=currentSecondLetter;
   }
-
-  if (didMouseClick(200, 200, sizeOfInputArea, sizeOfInputArea/2)) //check if click occured in letter area
+  else if (didMouseClick(380, 450, 80, 80)) //check if click in third letter button
   {
-    if (currentLetter=='_') //if underscore, consider that a space bar
-      currentTyped+=" ";
-    else if (currentLetter=='`' & currentTyped.length()>0) //if `, treat that as a delete command
-      currentTyped = currentTyped.substring(0, currentTyped.length()-1);
-    else if (currentLetter!='`') //if not any of the above cases, add the current letter to the typed string
-      currentTyped+=currentLetter;
+    currentTyped+=currentThirdLetter;
+  }
+  
+  else if (didMouseClick(460, 450, 80, 80)) //check if click in fourth letter button
+  {
+    currentTyped+=currentFourthLetter;
+  }
+  else if (didMouseClick(520, 450, 80, 80)) //check if click in fifth letter button
+  {
+    currentTyped+=currentFifthLetter;
   }
 
   //You are allowed to have a next button outside the 2" area
