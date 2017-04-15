@@ -18,14 +18,23 @@ char currentThirdLetter = 'c';
 char currentFourthLetter = 'd';
 char currentFifthLetter = 'e';
 
-final float xsizeOfGroupButton = 80;
-final float ysizeOfGroupButton = 50;
-final float yPosGroupButton = 575;
-final float xText = (xsizeOfGroupButton / 2); //arbitrary value of / 5 to account for spacing 
-final float yText = (yPosGroupButton+ysizeOfGroupButton/2) + 5; //arbitrary value of + 5 to account for spacing 
+String printTyped = " ";
+final int backSpaceX = 250;
+final int spaceX = 684;
+final int yTopButton = 250;
+final int sizeOfTopButton = 100;
+final int letterY = 420;
+final int sizeOfLetterButton = 100;
+final int xsizeOfGroupButton = 170;
+final int ysizeOfGroupButton = 60;
+final float yPosGroupButtonOne = 490;
+final float yPosGroupButtonTwo = 565;
+final float xText = (xsizeOfGroupButton / 2); //arbitrary value of 10 to account for spacing 
+final float yTextOne = (yPosGroupButtonOne+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
+final float yTextTwo = (yPosGroupButtonTwo+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
 ArrayList<Integer> xPosButtons = new ArrayList<Integer>();
-
-final int DPIofYourDeviceScreen = 441; //you will need to look up the DPI or PPI of your device to make sure you get the right scale!!
+ArrayList<Integer> letterXPosButtons = new ArrayList<Integer>();
+final int DPIofYourDeviceScreen = 534; //you will need to look up the DPI or PPI of your device to make sure you get the right scale!!
                                       //http://en.wikipedia.org/wiki/List_of_displays_by_pixel_density
 final float sizeOfInputArea = DPIofYourDeviceScreen*1; //aka, 1.0 inches square!
 final int LETTER_STROKE_COLOR = 0;
@@ -33,6 +42,8 @@ final int LETTER_STROKE_COLOR = 0;
 //You can modify anything in here. This is just a basic implementation.
 void setup()
 {
+  int i;
+  int x;
   phrases = loadStrings("phrases2.txt"); //load the phrase set into memory
   Collections.shuffle(Arrays.asList(phrases)); //randomize the order of the phrases
     
@@ -41,10 +52,21 @@ void setup()
   textFont(createFont("Arial", 24)); //set the font to arial 24
   noStroke(); //my code doesn't use any strokes.
 
-   for (int i = 0; i < 5; i++)
+  for (i = 0; i < 3; i++)
   {
-    int x = 225 + (i*75);
+    x = 210 + (i*xsizeOfGroupButton);
     xPosButtons.add(x);
+  }
+  
+  for (i = 0; i < 2; i++)
+  {
+    x = 280 + (i*xsizeOfGroupButton);
+    xPosButtons.add(x);
+  }
+  for (i = 0; i < 5; i++) 
+  {
+    int letterX = 267 + i * sizeOfLetterButton;
+    letterXPosButtons.add(letterX);
   }
 
 }
@@ -88,7 +110,8 @@ void draw()
     text("Phrase " + (currTrialNum+1) + " of " + totalTrialNum, 70, 50); //draw the trial count
     fill(255);
     text("Target:   " + currentPhrase, 70, 100); //draw the target string
-    text("Entered:  " + currentTyped, 70, 140); //draw what the user has entered thus far 
+    printTyped = currentTyped.replace(" ", "_");
+    text("Entered:  " + printTyped, 70, 140); //draw what the user has entered thus far 
     fill(255, 0, 0);
     rect(800, 00, 200, 200); //drag next button
     fill(255);
@@ -99,42 +122,20 @@ void draw()
     fill(255, 0, 0);
     textSize(40);
     rectMode(CENTER);
-    //strokeWeight(5);
-    stroke(LETTER_STROKE_COLOR);
-    
-    // 1st letter
-    rect(260, 490, 80, 80);
-    //fill(240, 0, 0, 50);
-    stroke(LETTER_STROKE_COLOR);
     strokeWeight(5);
-    
-    // 2nd letter 
-    rect(340, 490, 80, 80);
-    //fill(230, 0, 0);
-    stroke(LETTER_STROKE_COLOR);
-    strokeWeight(5);
-
-    
-    // 3rd letter 
-    rect(420, 490, 80, 80);
-    //fill(220, 0, 0);
     stroke(LETTER_STROKE_COLOR);
     
-    // 4th letter 
-    rect(500, 490, 80, 80);
-    //fill(220, 0, 0);
-    stroke(LETTER_STROKE_COLOR);
+    for (int i = 0; i < 5; i++) {
+      // Minus 10 because rects are drawn oddly
+      rect(letterXPosButtons.get(i), letterY-10, sizeOfLetterButton, sizeOfLetterButton);
+    }
     
-    // 5th letter 
-    rect(580, 490, 80, 80);
-    //fill(220, 0, 0);
-    stroke(LETTER_STROKE_COLOR);
     fill(0,0,0);
-    text(currentFirstLetter, 260, 500); 
-    text(currentSecondLetter, 340, 500);
-    text(currentThirdLetter, 420, 500);
-    text(currentFourthLetter, 500, 500);
-    text(currentFifthLetter, 580, 500);
+    text(currentFirstLetter, letterXPosButtons.get(0), letterY); 
+    text(currentSecondLetter, letterXPosButtons.get(1), letterY);
+    text(currentThirdLetter, letterXPosButtons.get(2), letterY);
+    text(currentFourthLetter, letterXPosButtons.get(3), letterY);
+    text(currentFifthLetter, letterXPosButtons.get(4), letterY);
     drawBackspace();
     drawSpace();
 
@@ -150,20 +151,21 @@ void draw()
 
     //drawing five buttons for alphabet
 
-    rect(xPosButtons.get(0), yPosGroupButton, xsizeOfGroupButton, ysizeOfGroupButton); //drag next button
-    rect(xPosButtons.get(1), yPosGroupButton, xsizeOfGroupButton, ysizeOfGroupButton); //drag next button
-    rect(xPosButtons.get(2), yPosGroupButton, xsizeOfGroupButton, ysizeOfGroupButton); //drag next button
-    rect(xPosButtons.get(3), yPosGroupButton, xsizeOfGroupButton, ysizeOfGroupButton); //drag next button
-    rect(xPosButtons.get(4), yPosGroupButton, xsizeOfGroupButton, ysizeOfGroupButton); //drag next button
+    rect(xPosButtons.get(0), yPosGroupButtonOne, xsizeOfGroupButton, ysizeOfGroupButton); //drag next button
+    rect(xPosButtons.get(1), yPosGroupButtonOne, xsizeOfGroupButton, ysizeOfGroupButton); //drag next button
+    rect(xPosButtons.get(2), yPosGroupButtonOne, xsizeOfGroupButton, ysizeOfGroupButton); //drag next button
+    rect(xPosButtons.get(3), yPosGroupButtonTwo, xsizeOfGroupButton, ysizeOfGroupButton); //drag next button
+    rect(xPosButtons.get(4), yPosGroupButtonTwo, xsizeOfGroupButton, ysizeOfGroupButton); //drag next button
 
     fill(0);
-    textSize(22);
-    text("abcde", xPosButtons.get(0) + xText, yText); //draw next label
-    text("fghij", xPosButtons.get(1) + xText, yText);
-    text("klmno", xPosButtons.get(2) + xText, yText);
-    text("pqrst", xPosButtons.get(3) + xText, yText);
-    text("uvwxy", xPosButtons.get(4) + xText, yText);
-
+    textSize(40);
+    text("a b c d e", xPosButtons.get(0) + xText, yTextOne); //draw next label
+    text("f g h i j", xPosButtons.get(1) + xText, yTextOne);
+    text("k l m n o", xPosButtons.get(2) + xText, yTextOne);
+    text("p q r s t", xPosButtons.get(3) + xText, yTextTwo);
+    text("u v w x y", xPosButtons.get(4) + xText, yTextTwo);
+    
+    textSize(30);
   }
   
 }
@@ -171,17 +173,17 @@ void draw()
 void drawSpace() {
  stroke(LETTER_STROKE_COLOR);   
  fill(255,0,0);
- rect(600, 240, 80, 80);
+ rect(spaceX, yTopButton, sizeOfTopButton, sizeOfTopButton);
  fill(0);
- text("_", 600, 250);
+ text("_", spaceX, yTopButton);
 }
 
 void drawBackspace() {
  stroke(LETTER_STROKE_COLOR);   
  fill(255,0,0);
- rect(240, 240, 80, 80);
+ rect(backSpaceX, yTopButton, sizeOfTopButton, sizeOfTopButton);
  fill(0);
- text("X", 240, 250);
+ text("X", backSpaceX, yTopButton+10);
 }
 
 boolean didMouseClick(float x, float y, float w, float h) //simple function to do hit testing
@@ -193,17 +195,18 @@ void mousePressed()
 {
   println("Mouse X is: " + mouseX + " Mouse Y is " + mouseY);
 
-  if (didMouseClick(200, 200, 80, 80) && currentTyped.length()>0) {
+  if (didMouseClick(backSpaceX-sizeOfTopButton/2, yTopButton-sizeOfTopButton/2, sizeOfTopButton, sizeOfTopButton) && currentTyped.length()>0) {
     currentTyped = currentTyped.substring(0, currentTyped.length()-1);
   }
-
-  if (didMouseClick(560, 200, 80, 80)) {
+  
+  println("Spce x is " + spaceX);
+  if (didMouseClick(spaceX-sizeOfTopButton/2, yTopButton-sizeOfTopButton/2, sizeOfTopButton, sizeOfTopButton)) {
     currentTyped += ' ';
   }
 
   //checking for group buttons 
 
-  if (didMouseClick(xPosButtons.get(0), yPosGroupButton, xsizeOfGroupButton, ysizeOfGroupButton))
+  if (didMouseClick(xPosButtons.get(0), yPosGroupButtonOne, xsizeOfGroupButton, ysizeOfGroupButton))
   {
     currentFirstLetter = 'a';
     currentSecondLetter = 'b';
@@ -212,7 +215,7 @@ void mousePressed()
     currentFifthLetter = 'e';
   }
 
-  else if (didMouseClick(xPosButtons.get(1), yPosGroupButton, xsizeOfGroupButton, ysizeOfGroupButton))
+  else if (didMouseClick(xPosButtons.get(1), yPosGroupButtonOne, xsizeOfGroupButton, ysizeOfGroupButton))
   {
     currentFirstLetter = 'f';
     currentSecondLetter = 'g';
@@ -221,7 +224,7 @@ void mousePressed()
     currentFifthLetter = 'j';
   }
 
-  else if (didMouseClick(xPosButtons.get(2), yPosGroupButton, xsizeOfGroupButton, ysizeOfGroupButton))
+  else if (didMouseClick(xPosButtons.get(2), yPosGroupButtonOne, xsizeOfGroupButton, ysizeOfGroupButton))
   {
     currentFirstLetter = 'k';
     currentSecondLetter = 'l';
@@ -230,7 +233,7 @@ void mousePressed()
     currentFifthLetter = 'o';
   }
 
-  else if (didMouseClick(xPosButtons.get(3), yPosGroupButton, xsizeOfGroupButton, ysizeOfGroupButton))
+  else if (didMouseClick(xPosButtons.get(3), yPosGroupButtonTwo, xsizeOfGroupButton, ysizeOfGroupButton))
   {
     currentFirstLetter = 'p';
     currentSecondLetter = 'q';
@@ -239,7 +242,7 @@ void mousePressed()
     currentFifthLetter = 't';
   }
 
-  else if (didMouseClick(xPosButtons.get(4), yPosGroupButton, xsizeOfGroupButton, ysizeOfGroupButton))
+  else if (didMouseClick(xPosButtons.get(4), yPosGroupButtonTwo, xsizeOfGroupButton, ysizeOfGroupButton))
   {
     currentFirstLetter = 'u';
     currentSecondLetter = 'v';
@@ -250,27 +253,25 @@ void mousePressed()
 
 
   //checking for top five letters 
-
-  if (didMouseClick(220, 450, 80, 80)) //check if click in first letter button
+  int halfButton = sizeOfLetterButton/2;
+  if (didMouseClick(letterXPosButtons.get(0) - halfButton, letterY - halfButton - 15, sizeOfLetterButton, sizeOfLetterButton)) //check if click in first letter button
   {
-    println("In 1");
     currentTyped+=currentFirstLetter;
   }
-  else if (didMouseClick(300, 450, 80, 80)) //check if click in second letter button
+  else if (didMouseClick(letterXPosButtons.get(1) - halfButton, letterY - halfButton - 15, sizeOfLetterButton, sizeOfLetterButton)) //check if click in second letter button
   {
-    println("In 2");
     currentTyped+=currentSecondLetter;
   }
-  else if (didMouseClick(380, 450, 80, 80)) //check if click in third letter button
+  else if (didMouseClick(letterXPosButtons.get(2) - halfButton, letterY - halfButton - 15, sizeOfLetterButton, sizeOfLetterButton)) //check if click in third letter button
   {
     currentTyped+=currentThirdLetter;
   }
   
-  else if (didMouseClick(460, 450, 80, 80)) //check if click in fourth letter button
+  else if (didMouseClick(letterXPosButtons.get(3) - halfButton, letterY - halfButton - 15, sizeOfLetterButton, sizeOfLetterButton)) //check if click in fourth letter button
   {
     currentTyped+=currentFourthLetter;
   }
-  else if (didMouseClick(520, 450, 80, 80)) //check if click in fifth letter button
+  else if (didMouseClick(letterXPosButtons.get(4) - halfButton, letterY - halfButton - 15, sizeOfLetterButton, sizeOfLetterButton)) //check if click in fifth letter button
   {
     currentTyped+=currentFifthLetter;
   }
