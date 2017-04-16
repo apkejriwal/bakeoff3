@@ -18,6 +18,15 @@ char currentThirdLetter = 'c';
 char currentFourthLetter = 'd';
 char currentFifthLetter = 'e';
 
+ArrayList<Character> letters = new ArrayList<Character>();
+ArrayList<Character> letters1 = new ArrayList<Character>();
+ArrayList<Character> letters2 = new ArrayList<Character>();
+ArrayList<Character> letters3 = new ArrayList<Character>();
+
+boolean zoom = false;
+boolean zoom1 = false;
+boolean zoom2 = false;
+boolean zoom3 = false;
 String printTyped = " ";
 final int backSpaceX = 250;
 final int spaceX = 684;
@@ -25,19 +34,32 @@ final int yTopButton = 250;
 final int sizeOfTopButton = 100;
 final int letterY = 420;
 final int sizeOfLetterButton = 100;
-final int xsizeOfGroupButton = 170;
-final int ysizeOfGroupButton = 60;
-final float yPosGroupButtonOne = 490;
-final float yPosGroupButtonTwo = 565;
-final float xText = (xsizeOfGroupButton / 2); //arbitrary value of 10 to account for spacing 
-final float yTextOne = (yPosGroupButtonOne+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
-final float yTextTwo = (yPosGroupButtonTwo+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
+int xsizeOfGroupButton = 50;
+int ysizeOfGroupButton = 60;
+float yPosGroupButtonOne = 400;
+float yPosGroupButtonTwo = 475;
+float yPosGroupButtonThree = 550;
+float xText = (xsizeOfGroupButton / 2); //arbitrary value of 10 to account for spacing 
+float yTextOne = (yPosGroupButtonOne+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
+float yTextTwo = (yPosGroupButtonTwo+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
+float yTextThree = (yPosGroupButtonThree+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
 ArrayList<Integer> xPosButtons = new ArrayList<Integer>();
 ArrayList<Integer> letterXPosButtons = new ArrayList<Integer>();
+ArrayList<Integer> zoom1X = new ArrayList<Integer>();
+
+
 final int DPIofYourDeviceScreen = 534; //you will need to look up the DPI or PPI of your device to make sure you get the right scale!!
                                       //http://en.wikipedia.org/wiki/List_of_displays_by_pixel_density
 final float sizeOfInputArea = DPIofYourDeviceScreen*1; //aka, 1.0 inches square!
 final int LETTER_STROKE_COLOR = 0;
+final int zoomAreaOneX = 200;
+final int zoomAreaY = 290; 
+final int zoomAreaSizeX = 177;
+final int zoomAreaSizeY = 440;
+final int zoomAreaTwoX = zoomAreaOneX + zoomAreaSizeX;
+final int zoomAreaThreeX = zoomAreaTwoX + zoomAreaSizeX;
+
+int xsizeOfZoom1 = 120;
 
 //You can modify anything in here. This is just a basic implementation.
 void setup()
@@ -52,23 +74,106 @@ void setup()
   textFont(createFont("Arial", 24)); //set the font to arial 24
   noStroke(); //my code doesn't use any strokes.
 
-  for (i = 0; i < 3; i++)
+  letters.add('q');
+  letters.add('w');
+  letters.add('e');
+  letters.add('r');
+  letters.add('t');
+  letters.add('y');
+  letters.add('u');
+  letters.add('i');
+  letters.add('o');
+  letters.add('p');
+  letters.add('a');
+  letters.add('s');
+  letters.add('d');
+  letters.add('f');
+  letters.add('g');
+  letters.add('h');
+  letters.add('j');
+  letters.add('k');
+  letters.add('l');
+  letters.add('z');
+  letters.add('x');
+  letters.add('c');
+  letters.add('v');
+  letters.add('b');
+  letters.add('n');
+  letters.add('m');
+  
+  letters1.add('q');
+  letters1.add('w');
+  letters1.add('e');
+  letters1.add('r');
+  letters1.add('a');
+  letters1.add('s');
+  letters1.add('d');
+  letters1.add('z');
+  letters1.add('x');
+  
+  letters2.add('r');
+  letters2.add('t');
+  letters2.add('y');
+  letters2.add('u');
+  letters2.add('f');
+  letters2.add('g');
+  letters2.add('h');
+  letters2.add('j');
+  letters2.add('c');
+  letters2.add('v');
+  letters2.add('b');
+  letters2.add('n');
+  
+  letters3.add('i');
+  letters3.add('o');
+  letters3.add('p');
+  letters3.add('j');
+  letters3.add('k');
+  letters3.add('l');
+  letters3.add('n');
+  letters3.add('m');
+  // row 1
+  for (i = 0; i < 10; i++)
   {
     x = 210 + (i*xsizeOfGroupButton);
     xPosButtons.add(x);
   }
-  
-  for (i = 0; i < 2; i++)
+    
+  // row 2
+  for (i = 0; i < 9; i++)
   {
-    x = 280 + (i*xsizeOfGroupButton);
+    x = 235 + (i*xsizeOfGroupButton);
     xPosButtons.add(x);
   }
-  for (i = 0; i < 5; i++) 
+    
+  // row 3
+  for (i = 0; i < 7; i++)
   {
-    int letterX = 267 + i * sizeOfLetterButton;
-    letterXPosButtons.add(letterX);
+    x = 285 + (i*xsizeOfGroupButton);
+    xPosButtons.add(x);
   }
-
+  
+  
+  // zoom1 row 1
+   for (i = 0; i < 4; i++)
+  {
+    x = 220 + (i*xsizeOfZoom1);
+    zoom1X.add(x);
+  }
+    
+  // row 2
+  for (i = 0; i < 3; i++)
+  {
+    x = 275 + (i*xsizeOfZoom1);
+    zoom1X.add(x);
+  }
+    
+  // row 3
+  for (i = 0; i < 2; i++)
+  {
+    x = 335 + (i*xsizeOfZoom1);
+    zoom1X.add(x);
+  }
 }
 
 
@@ -125,49 +230,122 @@ void draw()
     strokeWeight(5);
     stroke(LETTER_STROKE_COLOR);
     
-    for (int i = 0; i < 5; i++) {
-      // Minus 10 because rects are drawn oddly
-      rect(letterXPosButtons.get(i), letterY-10, sizeOfLetterButton, sizeOfLetterButton);
-    }
-    
-    fill(0,0,0);
-    text(currentFirstLetter, letterXPosButtons.get(0), letterY); 
-    text(currentSecondLetter, letterXPosButtons.get(1), letterY);
-    text(currentThirdLetter, letterXPosButtons.get(2), letterY);
-    text(currentFourthLetter, letterXPosButtons.get(3), letterY);
-    text(currentFifthLetter, letterXPosButtons.get(4), letterY);
     drawBackspace();
     drawSpace();
 
-
-
     rectMode(CORNER);
-    //rect(200, 200+sizeOfInputArea/2, sizeOfInputArea/2, sizeOfInputArea/2); //draw left red button
+    fill(0,0,255);
+    rect(zoomAreaOneX, zoomAreaY, zoomAreaSizeX, zoomAreaSizeY);
+    fill(0,0,255,500);
+    rect(zoomAreaTwoX, zoomAreaY, zoomAreaSizeX, zoomAreaSizeY);
+    fill(0,0,255,300);
+    rect(zoomAreaThreeX, zoomAreaY, zoomAreaSizeX, zoomAreaSizeY);
     fill(0, 255, 0);
     textSize(30);
-    //rect(200+sizeOfInputArea/2, 200+sizeOfInputArea/2, sizeOfInputArea/2, sizeOfInputArea/2); //draw right green button
 
     fill(255);
-
-    //drawing five buttons for alphabet
-
-    rect(xPosButtons.get(0), yPosGroupButtonOne, xsizeOfGroupButton, ysizeOfGroupButton); //drag next button
-    rect(xPosButtons.get(1), yPosGroupButtonOne, xsizeOfGroupButton, ysizeOfGroupButton); //drag next button
-    rect(xPosButtons.get(2), yPosGroupButtonOne, xsizeOfGroupButton, ysizeOfGroupButton); //drag next button
-    rect(xPosButtons.get(3), yPosGroupButtonTwo, xsizeOfGroupButton, ysizeOfGroupButton); //drag next button
-    rect(xPosButtons.get(4), yPosGroupButtonTwo, xsizeOfGroupButton, ysizeOfGroupButton); //drag next button
-
-    fill(0);
-    textSize(40);
-    text("a b c d e", xPosButtons.get(0) + xText, yTextOne); //draw next label
-    text("f g h i j", xPosButtons.get(1) + xText, yTextOne);
-    text("k l m n o", xPosButtons.get(2) + xText, yTextOne);
-    text("p q r s t", xPosButtons.get(3) + xText, yTextTwo);
-    text("u v w x y", xPosButtons.get(4) + xText, yTextTwo);
-    
     textSize(30);
+    
+    if (zoom) {
+      zoomFirst();
+    }
+    else {
+      println("unzoom");
+      drawUnZoom();
+    }
   }
-  
+}
+
+void zoomFirst() {
+  int i;
+  xsizeOfGroupButton = 120;
+  ysizeOfGroupButton = 120;
+  yPosGroupButtonOne = 300;
+  yPosGroupButtonTwo = 450;
+  yPosGroupButtonThree = 600;
+  xText = (xsizeOfGroupButton / 2); //arbitrary value of 10 to account for spacing 
+  yTextOne = (yPosGroupButtonOne+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
+  yTextTwo = (yPosGroupButtonTwo+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
+  yTextThree = (yPosGroupButtonThree+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
+  // row 1
+  for (i = 0; i < 4; i++)
+  {
+    fill(255);
+    rect(zoom1X.get(i), yPosGroupButtonOne, xsizeOfGroupButton, ysizeOfGroupButton);
+    fill(0);
+    text(letters1.get(i), zoom1X.get(i) + xText, yTextOne);
+  }
+    
+  // row 2
+  for (i = 0; i < 3; i++)
+  {
+    fill(255);
+    rect(zoom1X.get(i+4), yPosGroupButtonTwo, xsizeOfGroupButton, ysizeOfGroupButton);
+    fill(0);      
+    text(letters1.get(i+4), zoom1X.get(i+4) + xText, yTextTwo);
+  }
+    
+  // row 3
+  for (i = 0; i < 2; i++)
+  {
+    fill(255);
+    rect(zoom1X.get(i+7), yPosGroupButtonThree, xsizeOfGroupButton, ysizeOfGroupButton);
+    fill(0);
+    text(letters1.get(i+7), zoom1X.get(i+7) + xText, yTextThree);
+  }
+    
+}
+
+void zoomSecond() {
+  println("zoom 2");
+}
+void zoomThird() {
+  println("zoom 3");
+}
+void drawUnZoom() {
+  int i;
+  // row 1
+    for (i = 0; i < 10; i++)
+    {
+      fill(255);
+      rect(xPosButtons.get(i), yPosGroupButtonOne, xsizeOfGroupButton, ysizeOfGroupButton);
+      fill(0);
+      text(letters.get(i), xPosButtons.get(i) + xText, yTextOne);
+    }
+      
+    // row 2
+    for (i = 0; i < 9; i++)
+    {
+      fill(255);
+      rect(xPosButtons.get(i+10), yPosGroupButtonTwo, xsizeOfGroupButton, ysizeOfGroupButton);
+      fill(0);      
+      text(letters.get(i+10), xPosButtons.get(i+10) + xText, yTextTwo);
+    }
+      
+    // row 3
+    for (i = 0; i < 7; i++)
+    {
+      fill(255);
+      rect(xPosButtons.get(i+19), yPosGroupButtonThree, xsizeOfGroupButton, ysizeOfGroupButton);
+      fill(0);
+      text(letters.get(i+19), xPosButtons.get(i+19) + xText, yTextThree);
+    }
+}
+
+void unzoom() {
+  zoom = false;
+  zoom1 = false;
+  zoom2 = false;
+  zoom3 = false;
+  xsizeOfGroupButton = 50;
+  ysizeOfGroupButton = 60;
+  yPosGroupButtonOne = 400;
+  yPosGroupButtonTwo = 475;
+  yPosGroupButtonThree = 550;
+  xText = (xsizeOfGroupButton / 2); //arbitrary value of 10 to account for spacing 
+  yTextOne = (yPosGroupButtonOne+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
+  yTextTwo = (yPosGroupButtonTwo+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
+  yTextThree = (yPosGroupButtonThree+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
 }
 
 void drawSpace() {
@@ -193,87 +371,31 @@ boolean didMouseClick(float x, float y, float w, float h) //simple function to d
 
 void mousePressed()
 {
-  println("Mouse X is: " + mouseX + " Mouse Y is " + mouseY);
+   if (zoom) {
+    unzoom();
+   }
+   
 
-  if (didMouseClick(backSpaceX-sizeOfTopButton/2, yTopButton-sizeOfTopButton/2, sizeOfTopButton, sizeOfTopButton) && currentTyped.length()>0) {
-    currentTyped = currentTyped.substring(0, currentTyped.length()-1);
-  }
-  
-  println("Spce x is " + spaceX);
-  if (didMouseClick(spaceX-sizeOfTopButton/2, yTopButton-sizeOfTopButton/2, sizeOfTopButton, sizeOfTopButton)) {
-    currentTyped += ' ';
-  }
-
-  //checking for group buttons 
-
-  if (didMouseClick(xPosButtons.get(0), yPosGroupButtonOne, xsizeOfGroupButton, ysizeOfGroupButton))
+  else if (!zoom && didMouseClick(zoomAreaOneX, zoomAreaY, zoomAreaTwoX - zoomAreaOneX, 600)) //check if click in first letter button
   {
-    currentFirstLetter = 'a';
-    currentSecondLetter = 'b';
-    currentThirdLetter = 'c';
-    currentFourthLetter = 'd';
-    currentFifthLetter = 'e';
+    zoom1 = true;
+    zoom = true;
+    println("Zooming first area");
+    zoomFirst();
   }
-
-  else if (didMouseClick(xPosButtons.get(1), yPosGroupButtonOne, xsizeOfGroupButton, ysizeOfGroupButton))
+  else if (!zoom && didMouseClick(zoomAreaOneX, zoomAreaY, zoomAreaTwoX - zoomAreaOneX, 600)) //check if click in first letter button
   {
-    currentFirstLetter = 'f';
-    currentSecondLetter = 'g';
-    currentThirdLetter = 'h';
-    currentFourthLetter = 'i';
-    currentFifthLetter = 'j';
+    zoom2 = true;
+    zoom = true;
+    println("Zooming 2nd area");
+    zoomSecond();
   }
-
-  else if (didMouseClick(xPosButtons.get(2), yPosGroupButtonOne, xsizeOfGroupButton, ysizeOfGroupButton))
-  {
-    currentFirstLetter = 'k';
-    currentSecondLetter = 'l';
-    currentThirdLetter = 'm';
-    currentFourthLetter = 'n';
-    currentFifthLetter = 'o';
-  }
-
-  else if (didMouseClick(xPosButtons.get(3), yPosGroupButtonTwo, xsizeOfGroupButton, ysizeOfGroupButton))
-  {
-    currentFirstLetter = 'p';
-    currentSecondLetter = 'q';
-    currentThirdLetter = 'r';
-    currentFourthLetter = 's';
-    currentFifthLetter = 't';
-  }
-
-  else if (didMouseClick(xPosButtons.get(4), yPosGroupButtonTwo, xsizeOfGroupButton, ysizeOfGroupButton))
-  {
-    currentFirstLetter = 'u';
-    currentSecondLetter = 'v';
-    currentThirdLetter = 'w';
-    currentFourthLetter = 'x';
-    currentFifthLetter = 'y';
-  }
-
-
-  //checking for top five letters 
-  int halfButton = sizeOfLetterButton/2;
-  if (didMouseClick(letterXPosButtons.get(0) - halfButton, letterY - halfButton - 15, sizeOfLetterButton, sizeOfLetterButton)) //check if click in first letter button
-  {
-    currentTyped+=currentFirstLetter;
-  }
-  else if (didMouseClick(letterXPosButtons.get(1) - halfButton, letterY - halfButton - 15, sizeOfLetterButton, sizeOfLetterButton)) //check if click in second letter button
-  {
-    currentTyped+=currentSecondLetter;
-  }
-  else if (didMouseClick(letterXPosButtons.get(2) - halfButton, letterY - halfButton - 15, sizeOfLetterButton, sizeOfLetterButton)) //check if click in third letter button
-  {
-    currentTyped+=currentThirdLetter;
-  }
-  
-  else if (didMouseClick(letterXPosButtons.get(3) - halfButton, letterY - halfButton - 15, sizeOfLetterButton, sizeOfLetterButton)) //check if click in fourth letter button
-  {
-    currentTyped+=currentFourthLetter;
-  }
-  else if (didMouseClick(letterXPosButtons.get(4) - halfButton, letterY - halfButton - 15, sizeOfLetterButton, sizeOfLetterButton)) //check if click in fifth letter button
-  {
-    currentTyped+=currentFifthLetter;
+  else if (!zoom && didMouseClick(zoomAreaOneX, zoomAreaY, zoomAreaTwoX - zoomAreaOneX, 600)) //check if click in first letter button
+  { 
+    zoom3 = true;
+    zoom = true;
+    println("Zooming third area");
+    zoomThird();
   }
 
   //You are allowed to have a next button outside the 2" area
