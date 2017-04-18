@@ -124,7 +124,6 @@ void setup()
   letters2.add('f');
   letters2.add('g');
   letters2.add('h');
-  letters2.add('j');
   letters2.add('c');
   letters2.add('v');
   letters2.add('b');
@@ -184,21 +183,21 @@ void setup()
   //zoom 2 row1
   for (i = 0; i < 4; i++)
   {
-    x = 220 + (i*xsizeOfZoom1);
+    x = 230 + (i*xsizeOfZoom1);
     zoom2X.add(x);
   }
     
   // row 2
-  for (i = 0; i < 4; i++)
+  for (i = 0; i < 3; i++)
   {
-    x = 220 + (i*xsizeOfZoom1);
+    x = 300 + (i*xsizeOfZoom1);
     zoom2X.add(x);
   }
     
   // row 3
-  for (i = 0; i < 4; i++)
+  for (i = 0; i < 3; i++)
   {
-    x = 220 + (i*xsizeOfZoom1);
+    x = 300 + (i*xsizeOfZoom1);
     zoom2X.add(x);
   }
 
@@ -310,7 +309,6 @@ void draw()
       zoomThird(); 
     }
     else {
-      println("unzoom");
       drawUnZoom();
     }
   }
@@ -377,7 +375,7 @@ void zoomSecond() {
     }
       
     // row 2
-    for (i = 0; i < 4; i++)
+    for (i = 0; i < 3; i++)
     {
       fill(255);
       rect(zoom2X.get(i+4), yPosGroupButtonTwo, xsizeOfGroupButton, ysizeOfGroupButton);
@@ -386,12 +384,12 @@ void zoomSecond() {
     }
       
     // row 3
-    for (i = 0; i < 4; i++)
+    for (i = 0; i < 3; i++)
     {
       fill(255);
-      rect(zoom2X.get(i+8), yPosGroupButtonThree, xsizeOfGroupButton, ysizeOfGroupButton);
+      rect(zoom2X.get(i+7), yPosGroupButtonThree, xsizeOfGroupButton, ysizeOfGroupButton);
       fill(0);
-      text(letters2.get(i+8), zoom2X.get(i+8) + xText, yTextThree);
+      text(letters2.get(i+7), zoom2X.get(i+7) + xText, yTextThree);
     }
 }
 void zoomThird() {
@@ -501,13 +499,113 @@ boolean didMouseClick(float x, float y, float w, float h) //simple function to d
   return (mouseX > x && mouseX<x+w && mouseY>y && mouseY<y+h); //check to see if it is in button bounds
 }
 
+char zoom1Click(int x, int y) {
+  int i;
+  for (i = 0; i < 4; i++) {
+    if (didMouseClick(220+(i*xsizeOfZoom1), yPosGroupButtonOne, xsizeOfGroupButton, xsizeOfGroupButton)) {
+      println("clicked in first row got: %c", letters1.get(i));
+      return letters1.get(i);
+    }
+  }
+  for (i = 0; i < 3; i++) {
+    if (didMouseClick(275+(i*xsizeOfZoom1), yPosGroupButtonTwo, xsizeOfGroupButton, xsizeOfGroupButton)) {
+      return letters1.get(i+4);
+    }
+  }
+  for (i = 0; i < 2; i++) {
+    if (didMouseClick(335+(i*xsizeOfZoom1), yPosGroupButtonThree, xsizeOfGroupButton, xsizeOfGroupButton)) {
+      return letters1.get(i+7);
+    }
+  }
+  return 0;
+}
+
+char zoom2Click(int x, int y) {
+  int i;
+  for (i = 0; i < 3; i++) {
+    if (didMouseClick(300+(i*xsizeOfZoom1), yPosGroupButtonOne, xsizeOfGroupButton, xsizeOfGroupButton)) {
+      println("clicked in first row got: %c", letters1.get(i));
+      return letters2.get(i);
+    }
+  }
+  for (i = 0; i < 3; i++) {
+    if (didMouseClick(300+(i*xsizeOfZoom1), yPosGroupButtonTwo, xsizeOfGroupButton, xsizeOfGroupButton)) {
+      return letters2.get(i+3);
+    }
+  }
+  for (i = 0; i < 3; i++) {
+    if (didMouseClick(300+(i*xsizeOfZoom1), yPosGroupButtonThree, xsizeOfGroupButton, xsizeOfGroupButton)) {
+      return letters2.get(i+6);
+    }
+  }
+  return 0;
+}
+
+char zoom3Click(int x, int y) {
+  int i;
+  for (i = 0; i < 3; i++) {
+    if (didMouseClick(335+(i*xsizeOfZoom1), yPosGroupButtonOne, xsizeOfGroupButton, xsizeOfGroupButton)) {
+      println("clicked in first row got: %c", letters1.get(i));
+      return letters3.get(i);
+    }
+  }
+  for (i = 0; i < 3; i++) {
+    if (didMouseClick(300+(i*xsizeOfZoom1), yPosGroupButtonTwo, xsizeOfGroupButton, xsizeOfGroupButton)) {
+      return letters3.get(i+3);
+    }
+  }
+  for (i = 0; i < 2; i++) {
+    if (didMouseClick(255+(i*xsizeOfZoom1), yPosGroupButtonThree, xsizeOfGroupButton, xsizeOfGroupButton)) {
+      return letters3.get(i+6);
+    }
+  }
+  return 0;
+}
+
 void mousePressed()
 {
-   if (zoom) {
-    unzoom();
-   }
-   
-
+  if (startTime == 0) {
+    return;
+  }
+  println(mouseX + " " + mouseY);
+  //if (zoom) {
+  //  unzoom();
+  // }
+  if (didMouseClick(backSpaceX-sizeOfTopButton/2, yTopButton-sizeOfTopButton/2, sizeOfTopButton, sizeOfTopButton) && currentTyped.length()>0) {
+    currentTyped = currentTyped.substring(0, currentTyped.length()-1);
+  }
+  
+  else if (didMouseClick(spaceX-sizeOfTopButton/2, yTopButton-sizeOfTopButton/2, sizeOfTopButton, sizeOfTopButton)) {
+    currentTyped += ' ';
+  }
+  
+  else if (zoom1) {
+    char res = zoom1Click(mouseX, mouseY);
+    if (res != 0) {
+      currentTyped += res;
+    }
+    else {
+      unzoom();
+    }
+  }
+  else if (zoom2) {
+    char res = zoom2Click(mouseX, mouseY);
+    if (res != 0) {
+      currentTyped += res;
+    }
+    else {
+      unzoom();
+    }
+  }
+  else if (zoom3) {
+    char res = zoom3Click(mouseX, mouseY);
+    if (res != 0) {
+      currentTyped += res;
+    }
+    else {
+      unzoom();
+    }
+  }
   else if (!zoom && didMouseClick(zoomAreaOneX, zoomAreaY, zoomAreaTwoX - zoomAreaOneX, 600)) //check if click in first letter button
   {
     zoom1 = true;
@@ -529,6 +627,7 @@ void mousePressed()
     println("Zooming third area");
     zoomThird();
   }
+
 
   //You are allowed to have a next button outside the 2" area
   if (didMouseClick(800, 00, 200, 200)) //check if click is in next button
