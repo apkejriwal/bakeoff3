@@ -261,16 +261,17 @@ void draw()
   {
     //you will need something like the next 10 lines in your code. Output does not have to be within the 2 inch area!
     textAlign(LEFT); //align the text left
+    textSize(45);
     fill(128);
     text("Phrase " + (currTrialNum+1) + " of " + totalTrialNum, 70, 50); //draw the trial count
     fill(255);
-    text("Target:   " + currentPhrase, 70, 100); //draw the target string
+    text("T: " + currentPhrase, 30, 100); //draw the target string
     printTyped = currentTyped.replace(" ", "_");
-    text("Entered:  " + printTyped, 70, 140); //draw what the user has entered thus far 
+    text("E: " + printTyped, 30, 140); //draw what the user has entered thus far 
     fill(255, 0, 0);
-    rect(800, 00, 200, 200); //drag next button
+    rect(800, 800, 200, 200); //drag next button
     fill(255);
-    text("NEXT > ", 850, 100); //draw next label
+    text("NEXT > ", 825, 850); //draw next label
 
     //my draw code
     textAlign(CENTER);
@@ -629,7 +630,7 @@ void mousePressed()
 
 
   //You are allowed to have a next button outside the 2" area
-  if (didMouseClick(800, 00, 200, 200)) //check if click is in next button
+  if (didMouseClick(800, 800, 200, 200)) //check if click is in next button
   {
     nextTrial(); //if so, advance to next trial
   }
