@@ -522,20 +522,19 @@ char zoom1Click(int x, int y) {
 
 char zoom2Click(int x, int y) {
   int i;
-  for (i = 0; i < 3; i++) {
-    if (didMouseClick(300+(i*xsizeOfZoom1), yPosGroupButtonOne, xsizeOfGroupButton, xsizeOfGroupButton)) {
-      println("clicked in first row got: %c", letters1.get(i));
+  for (i = 0; i < 4; i++) {
+    if (didMouseClick(230+(i*xsizeOfZoom1), yPosGroupButtonOne, xsizeOfGroupButton, xsizeOfGroupButton)) {
       return letters2.get(i);
     }
   }
   for (i = 0; i < 3; i++) {
     if (didMouseClick(300+(i*xsizeOfZoom1), yPosGroupButtonTwo, xsizeOfGroupButton, xsizeOfGroupButton)) {
-      return letters2.get(i+3);
+      return letters2.get(i+4);
     }
   }
   for (i = 0; i < 3; i++) {
     if (didMouseClick(300+(i*xsizeOfZoom1), yPosGroupButtonThree, xsizeOfGroupButton, xsizeOfGroupButton)) {
-      return letters2.get(i+6);
+      return letters2.get(i+7);
     }
   }
   return 0;
