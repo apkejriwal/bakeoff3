@@ -110,7 +110,7 @@ void setup()
   letters1.add('q');
   letters1.add('w');
   letters1.add('e');
-  letters1.add('r');
+  //letters1.add('r');
   letters1.add('a');
   letters1.add('s');
   letters1.add('d');
@@ -161,9 +161,9 @@ void setup()
   
   
   // zoom1 row 1
-  for (i = 0; i < 4; i++)
+  for (i = 0; i < 3; i++)
   {
-    x = 220 + (i*xsizeOfZoom1);
+    x = 240 + (i*xsizeOfZoom1);
     zoom1X.add(x);
   }
     
@@ -176,7 +176,7 @@ void setup()
     
   for (i = 0; i < 2; i++)
   {
-    x = 335 + (i*xsizeOfZoom1);
+    x = 355 + (i*xsizeOfZoom1);
     zoom1X.add(x);
   }
 
@@ -218,7 +218,7 @@ void setup()
     
   for (i = 0; i < 2; i++)
   {
-    x = 255 + (i*xsizeOfZoom1);
+    x = 300 + (i*xsizeOfZoom1);
     zoom3X.add(x);
   }
 
@@ -327,7 +327,7 @@ void zoomFirst() {
   yTextTwo = (yPosGroupButtonTwo+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
   yTextThree = (yPosGroupButtonThree+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
   // row 1
-  for (i = 0; i < 4; i++)
+  for (i = 0; i < 3; i++)
   {
     fill(255);
     rect(zoom1X.get(i), yPosGroupButtonOne, xsizeOfGroupButton, ysizeOfGroupButton);
@@ -339,18 +339,18 @@ void zoomFirst() {
   for (i = 0; i < 3; i++)
   {
     fill(255);
-    rect(zoom1X.get(i+4), yPosGroupButtonTwo, xsizeOfGroupButton, ysizeOfGroupButton);
+    rect(zoom1X.get(i+3), yPosGroupButtonTwo, xsizeOfGroupButton, ysizeOfGroupButton);
     fill(0);      
-    text(letters1.get(i+4), zoom1X.get(i+4) + xText, yTextTwo);
+    text(letters1.get(i+3), zoom1X.get(i+3) + xText, yTextTwo);
   }
     
   // row 3
   for (i = 0; i < 2; i++)
   {
     fill(255);
-    rect(zoom1X.get(i+7), yPosGroupButtonThree, xsizeOfGroupButton, ysizeOfGroupButton);
+    rect(zoom1X.get(i+6), yPosGroupButtonThree, xsizeOfGroupButton, ysizeOfGroupButton);
     fill(0);
-    text(letters1.get(i+7), zoom1X.get(i+7) + xText, yTextThree);
+    text(letters1.get(i+6), zoom1X.get(i+6) + xText, yTextThree);
   }
     
 }
@@ -502,20 +502,19 @@ boolean didMouseClick(float x, float y, float w, float h) //simple function to d
 
 char zoom1Click(int x, int y) {
   int i;
-  for (i = 0; i < 4; i++) {
-    if (didMouseClick(220+(i*xsizeOfZoom1), yPosGroupButtonOne, xsizeOfGroupButton, xsizeOfGroupButton)) {
-      println("clicked in first row got: %c", letters1.get(i));
+  for (i = 0; i < 3; i++) {
+    if (didMouseClick(240+(i*xsizeOfZoom1), yPosGroupButtonOne, xsizeOfGroupButton, xsizeOfGroupButton)) {
       return letters1.get(i);
     }
   }
   for (i = 0; i < 3; i++) {
     if (didMouseClick(275+(i*xsizeOfZoom1), yPosGroupButtonTwo, xsizeOfGroupButton, xsizeOfGroupButton)) {
-      return letters1.get(i+4);
+      return letters1.get(i+3);
     }
   }
   for (i = 0; i < 2; i++) {
-    if (didMouseClick(335+(i*xsizeOfZoom1), yPosGroupButtonThree, xsizeOfGroupButton, xsizeOfGroupButton)) {
-      return letters1.get(i+7);
+    if (didMouseClick(355+(i*xsizeOfZoom1), yPosGroupButtonThree, xsizeOfGroupButton, xsizeOfGroupButton)) {
+      return letters1.get(i+6);
     }
   }
   return 0;
@@ -555,7 +554,7 @@ char zoom3Click(int x, int y) {
     }
   }
   for (i = 0; i < 2; i++) {
-    if (didMouseClick(255+(i*xsizeOfZoom1), yPosGroupButtonThree, xsizeOfGroupButton, xsizeOfGroupButton)) {
+    if (didMouseClick(300+(i*xsizeOfZoom1), yPosGroupButtonThree, xsizeOfGroupButton, xsizeOfGroupButton)) {
       return letters3.get(i+6);
     }
   }
