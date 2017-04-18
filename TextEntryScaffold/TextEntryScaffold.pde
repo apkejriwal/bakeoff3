@@ -28,14 +28,17 @@ boolean zoom1 = false;
 boolean zoom2 = false;
 boolean zoom3 = false;
 String printTyped = " ";
+
 final int backSpaceX = 250;
 final int spaceX = 684;
 final int yTopButton = 250;
 final int sizeOfTopButton = 100;
 final int letterY = 420;
 final int sizeOfLetterButton = 100;
+
 int xsizeOfGroupButton = 50;
 int ysizeOfGroupButton = 60;
+
 float yPosGroupButtonOne = 400;
 float yPosGroupButtonTwo = 475;
 float yPosGroupButtonThree = 550;
@@ -46,6 +49,9 @@ float yTextThree = (yPosGroupButtonThree+ysizeOfGroupButton/2) + 15; //arbitrary
 ArrayList<Integer> xPosButtons = new ArrayList<Integer>();
 ArrayList<Integer> letterXPosButtons = new ArrayList<Integer>();
 ArrayList<Integer> zoom1X = new ArrayList<Integer>();
+ArrayList<Integer> zoom2X = new ArrayList<Integer>();
+ArrayList<Integer> zoom3X = new ArrayList<Integer>();
+
 
 
 final int DPIofYourDeviceScreen = 534; //you will need to look up the DPI or PPI of your device to make sure you get the right scale!!
@@ -132,6 +138,7 @@ void setup()
   letters3.add('l');
   letters3.add('n');
   letters3.add('m');
+
   // row 1
   for (i = 0; i < 10; i++)
   {
@@ -155,7 +162,7 @@ void setup()
   
   
   // zoom1 row 1
-   for (i = 0; i < 4; i++)
+  for (i = 0; i < 4; i++)
   {
     x = 220 + (i*xsizeOfZoom1);
     zoom1X.add(x);
@@ -168,12 +175,56 @@ void setup()
     zoom1X.add(x);
   }
     
-  // row 3
   for (i = 0; i < 2; i++)
   {
     x = 335 + (i*xsizeOfZoom1);
     zoom1X.add(x);
   }
+
+  //zoom 2 row1
+  for (i = 0; i < 4; i++)
+  {
+    x = 220 + (i*xsizeOfZoom1);
+    zoom2X.add(x);
+  }
+    
+  // row 2
+  for (i = 0; i < 4; i++)
+  {
+    x = 220 + (i*xsizeOfZoom1);
+    zoom2X.add(x);
+  }
+    
+  // row 3
+  for (i = 0; i < 4; i++)
+  {
+    x = 220 + (i*xsizeOfZoom1);
+    zoom2X.add(x);
+  }
+
+
+  // zoom 3 row 1
+  for (i = 0; i < 3; i++)
+  {
+    x = 335 + (i*xsizeOfZoom1);
+    zoom3X.add(x);
+  }
+    
+  // row 2
+  for (i = 0; i < 3; i++)
+  {
+    x = 300 + (i*xsizeOfZoom1);
+    zoom3X.add(x);
+  }
+    
+  for (i = 0; i < 2; i++)
+  {
+    x = 255 + (i*xsizeOfZoom1);
+    zoom3X.add(x);
+  }
+
+
+
 }
 
 
@@ -246,8 +297,17 @@ void draw()
     fill(255);
     textSize(30);
     
-    if (zoom) {
+    if (zoom1) {
       zoomFirst();
+    }
+    else if (zoom2)
+    {
+      zoomSecond();
+    }
+
+    else if (zoom3)
+    {
+      zoomThird(); 
     }
     else {
       println("unzoom");
@@ -297,11 +357,83 @@ void zoomFirst() {
 }
 
 void zoomSecond() {
-  println("zoom 2");
+    int i;
+    xsizeOfGroupButton = 120;
+    ysizeOfGroupButton = 120;
+    yPosGroupButtonOne = 300;
+    yPosGroupButtonTwo = 450;
+    yPosGroupButtonThree = 600;
+    xText = (xsizeOfGroupButton / 2); //arbitrary value of 10 to account for spacing 
+    yTextOne = (yPosGroupButtonOne+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
+    yTextTwo = (yPosGroupButtonTwo+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
+    yTextThree = (yPosGroupButtonThree+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
+    // row 1
+    for (i = 0; i < 4; i++)
+    {
+      fill(255);
+      rect(zoom2X.get(i), yPosGroupButtonOne, xsizeOfGroupButton, ysizeOfGroupButton);
+      fill(0);
+      text(letters2.get(i), zoom2X.get(i) + xText, yTextOne);
+    }
+      
+    // row 2
+    for (i = 0; i < 4; i++)
+    {
+      fill(255);
+      rect(zoom2X.get(i+4), yPosGroupButtonTwo, xsizeOfGroupButton, ysizeOfGroupButton);
+      fill(0);      
+      text(letters2.get(i+4), zoom2X.get(i+4) + xText, yTextTwo);
+    }
+      
+    // row 3
+    for (i = 0; i < 4; i++)
+    {
+      fill(255);
+      rect(zoom2X.get(i+8), yPosGroupButtonThree, xsizeOfGroupButton, ysizeOfGroupButton);
+      fill(0);
+      text(letters2.get(i+8), zoom2X.get(i+8) + xText, yTextThree);
+    }
 }
 void zoomThird() {
-  println("zoom 3");
+  int i;
+  xsizeOfGroupButton = 120;
+  ysizeOfGroupButton = 120;
+  yPosGroupButtonOne = 300;
+  yPosGroupButtonTwo = 450;
+  yPosGroupButtonThree = 600;
+  xText = (xsizeOfGroupButton / 2); //arbitrary value of 10 to account for spacing 
+  yTextOne = (yPosGroupButtonOne+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
+  yTextTwo = (yPosGroupButtonTwo+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
+  yTextThree = (yPosGroupButtonThree+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
+  // row 1
+  for (i = 0; i < 3; i++)
+  {
+    fill(255);
+    rect(zoom3X.get(i), yPosGroupButtonOne, xsizeOfGroupButton, ysizeOfGroupButton);
+    fill(0);
+    text(letters3.get(i), zoom3X.get(i) + xText, yTextOne);
+  }
+    
+  // row 2
+  for (i = 0; i < 3; i++)
+  {
+    fill(255);
+    rect(zoom3X.get(i+3), yPosGroupButtonTwo, xsizeOfGroupButton, ysizeOfGroupButton);
+    fill(0);      
+    text(letters3.get(i+3), zoom3X.get(i+3) + xText, yTextTwo);
+  }
+    
+  // row 3
+  for (i = 0; i < 2; i++)
+  {
+    fill(255);
+    rect(zoom3X.get(i+6), yPosGroupButtonThree, xsizeOfGroupButton, ysizeOfGroupButton);
+    fill(0);
+    text(letters3.get(i+6), zoom3X.get(i+6) + xText, yTextThree);
+  }
 }
+
+
 void drawUnZoom() {
   int i;
   // row 1
@@ -383,14 +515,14 @@ void mousePressed()
     println("Zooming first area");
     zoomFirst();
   }
-  else if (!zoom && didMouseClick(zoomAreaOneX, zoomAreaY, zoomAreaTwoX - zoomAreaOneX, 600)) //check if click in first letter button
+  else if (!zoom && didMouseClick(zoomAreaTwoX, zoomAreaY, zoomAreaTwoX - zoomAreaOneX, 600)) //check if click in first letter button
   {
     zoom2 = true;
     zoom = true;
     println("Zooming 2nd area");
     zoomSecond();
   }
-  else if (!zoom && didMouseClick(zoomAreaOneX, zoomAreaY, zoomAreaTwoX - zoomAreaOneX, 600)) //check if click in first letter button
+  else if (!zoom && didMouseClick(zoomAreaThreeX, zoomAreaY, zoomAreaTwoX - zoomAreaOneX, 600)) //check if click in first letter button
   { 
     zoom3 = true;
     zoom = true;
