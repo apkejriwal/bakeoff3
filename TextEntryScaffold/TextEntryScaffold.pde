@@ -1,7 +1,9 @@
 import java.util.Arrays;
 import java.util.Collections;
 
-int SPACE_COLOR =16711680; // red 
+long SPACE_R = 255; // red
+long SPACE_G = 0; // red
+long SPACE_B = 0; // red
 String[] phrases; //contains all of the phrases
 int totalTrialNum = 4; //the total number of phrases to be tested - set this low for testing. Might be ~10 for the real bakeoff!
 int currTrialNum = 0; // the current trial number (indexes into trials array above)
@@ -227,8 +229,10 @@ void setup()
 
 }
 
-void setSpaceColor(int color) {
- SPACE_COLOR = color;
+void setSpaceColor(int red, int gre, int blue) {
+ SPACE_R = red;
+ SPACE_G = gre;
+ SPACE_B = blue;
 } 
 
 //You can modify anything in here. This is just a basic implementation.
@@ -484,9 +488,9 @@ void unzoom() {
 
 void drawSpace() {
  stroke(LETTER_STROKE_COLOR);   
- fill(255,0,0);
+ fill(SPACE_R, SPACE_G, SPACE_B);
  rect(spaceX, yTopButton, sizeOfTopButton, sizeOfTopButton);
- fill(SPACE_COLOR);
+ fill(0);
  text("_", spaceX, yTopButton);
 }
 
@@ -575,19 +579,19 @@ void mousePressed()
   // }
   if (didMouseClick(backSpaceX-sizeOfTopButton/2, yTopButton-sizeOfTopButton/2, sizeOfTopButton, sizeOfTopButton) && currentTyped.length()>0) {
     currentTyped = currentTyped.substring(0, currentTyped.length()-1);
-    setSpaceColor(65280);
+    setSpaceColor(0, 255, 0);
   }
   
   else if (didMouseClick(spaceX-sizeOfTopButton/2, yTopButton-sizeOfTopButton/2, sizeOfTopButton, sizeOfTopButton)) {
     currentTyped += ' ';
-    setSpaceColor(16711680);
+    setSpaceColor(255, 0, 0);
   }
   
   else if (zoom1) {
     char res = zoom1Click(mouseX, mouseY);
     if (res != 0) {
       currentTyped += res;
-      setSpaceColor(65280);
+      setSpaceColor(0, 255, 0);
     }
     else {
       unzoom();
@@ -597,7 +601,7 @@ void mousePressed()
     char res = zoom2Click(mouseX, mouseY);
     if (res != 0) {
       currentTyped += res;
-      setSpaceColor(65280);
+      setSpaceColor(0, 255, 0);
     }
     else {
       unzoom();
@@ -607,7 +611,7 @@ void mousePressed()
     char res = zoom3Click(mouseX, mouseY);
     if (res != 0) {
       currentTyped += res;
-      setSpaceColor(65280);
+      setSpaceColor(0, 255, 0);
     }
     else {
       unzoom();
