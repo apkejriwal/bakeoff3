@@ -44,9 +44,9 @@ final int sizeOfLetterButton = 100;
 int xsizeOfGroupButton = 43;
 int ysizeOfGroupButton = 60;
 
-float yPosGroupButtonOne = 220;
-float yPosGroupButtonTwo = 290;
-float yPosGroupButtonThree = 360;
+float yPosGroupButtonOne = 320;
+float yPosGroupButtonTwo = 390;
+float yPosGroupButtonThree = 460;
 float xText = (xsizeOfGroupButton / 2); //arbitrary value of 10 to account for spacing 
 float yTextOne = (yPosGroupButtonOne+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
 float yTextTwo = (yPosGroupButtonTwo+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
