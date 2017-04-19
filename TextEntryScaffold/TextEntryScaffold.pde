@@ -33,15 +33,15 @@ boolean zoom3 = false;
 String printTyped = " ";
 
 final int backSpaceX = 260;
-final int spaceX = 580;
-final int yTopButton = 605;
+final int spaceX = 655;
+final int yTopButton = 678;
 final int ySizeOfTopButton = 70;
 final int xSizeOfTopButton = 120;
 
 final int letterY = 420;
 final int sizeOfLetterButton = 100;
 
-int xsizeOfGroupButton = 43;
+int xsizeOfGroupButton = 51;
 int ysizeOfGroupButton = 60;
 
 float yPosGroupButtonOne = 320;
@@ -59,18 +59,18 @@ ArrayList<Integer> zoom3X = new ArrayList<Integer>();
 
 
 
-final int DPIofYourDeviceScreen = 441; //you will need to look up the DPI or PPI of your device to make sure you get the right scale!!
+final int DPIofYourDeviceScreen = 515; //you will need to look up the DPI or PPI of your device to make sure you get the right scale!!
                                       //http://en.wikipedia.org/wiki/List_of_displays_by_pixel_density
 final float sizeOfInputArea = DPIofYourDeviceScreen*1; //aka, 1.0 inches square!
 final int LETTER_STROKE_COLOR = 0;
 final int zoomAreaOneX = 200;
 final int zoomAreaY = 205; 
-final int zoomAreaSizeX = 146;
-final int zoomAreaSizeY = 365;
+final int zoomAreaSizeX = 172;
+final int zoomAreaSizeY = 437;
 final int zoomAreaTwoX = zoomAreaOneX + zoomAreaSizeX;
 final int zoomAreaThreeX = zoomAreaTwoX + zoomAreaSizeX;
 
-int xsizeOfZoom1 = 100;
+int xsizeOfZoom1 = 130;
 
 //You can modify anything in here. This is just a basic implementation.
 void setup()
@@ -188,7 +188,7 @@ void setup()
   //zoom 2 row1
   for (i = 0; i < 4; i++)
   {
-    x = 210 + (i*xsizeOfZoom1);
+    x = 200 + (i*xsizeOfZoom1);
     zoom2X.add(x);
   }
     
@@ -307,7 +307,7 @@ void draw()
     textSize(30);
     if (zoom) {
       fill(255);
-      text("Unzoom", 420, 615);
+      text("Unzoom", 445, 685);
     }
     if (zoom1) {
       zoomFirst();
@@ -329,11 +329,11 @@ void draw()
 
 void zoomFirst() {
   int i;
-  xsizeOfGroupButton = 110;
-  ysizeOfGroupButton = 110;
+  xsizeOfGroupButton = 130;
+  ysizeOfGroupButton = 130;
   yPosGroupButtonOne = 220;
-  yPosGroupButtonTwo = 330;
-  yPosGroupButtonThree = 440;
+  yPosGroupButtonTwo = 350;
+  yPosGroupButtonThree = 480;
   xText = (xsizeOfGroupButton / 2); //arbitrary value of 10 to account for spacing 
   yTextOne = (yPosGroupButtonOne+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
   yTextTwo = (yPosGroupButtonTwo+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
@@ -369,11 +369,11 @@ void zoomFirst() {
 
 void zoomSecond() {
   int i;
-  xsizeOfGroupButton = 110;
-  ysizeOfGroupButton = 110;
+  xsizeOfGroupButton = 130;
+  ysizeOfGroupButton = 130;
   yPosGroupButtonOne = 220;
-  yPosGroupButtonTwo = 330;
-  yPosGroupButtonThree = 440;
+  yPosGroupButtonTwo = 350;
+  yPosGroupButtonThree = 480;
     xText = (xsizeOfGroupButton / 2); //arbitrary value of 10 to account for spacing 
     yTextOne = (yPosGroupButtonOne+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
     yTextTwo = (yPosGroupButtonTwo+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
@@ -407,11 +407,11 @@ void zoomSecond() {
 }
 void zoomThird() {
   int i;
-  xsizeOfGroupButton = 110;
-  ysizeOfGroupButton = 110;
+  xsizeOfGroupButton = 130;
+  ysizeOfGroupButton = 130;
   yPosGroupButtonOne = 220;
-  yPosGroupButtonTwo = 330;
-  yPosGroupButtonThree = 440;
+  yPosGroupButtonTwo = 350;
+  yPosGroupButtonThree = 480;
   xText = (xsizeOfGroupButton / 2); //arbitrary value of 10 to account for spacing 
   yTextOne = (yPosGroupButtonOne+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
   yTextTwo = (yPosGroupButtonTwo+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
@@ -480,8 +480,8 @@ void unzoom() {
   zoom1 = false;
   zoom2 = false;
   zoom3 = false;
-  xsizeOfGroupButton = 43;
-  ysizeOfGroupButton = 60;
+ xsizeOfGroupButton = 51;
+ ysizeOfGroupButton = 60;
   yPosGroupButtonOne = 220;
   yPosGroupButtonTwo = 290;
   yPosGroupButtonThree = 360;
@@ -535,7 +535,7 @@ char zoom1Click(int x, int y) {
 char zoom2Click(int x, int y) {
   int i;
   for (i = 0; i < 4; i++) {
-    if (didMouseClick(210+(i*xsizeOfZoom1), yPosGroupButtonOne, xsizeOfGroupButton, xsizeOfGroupButton)) {
+    if (didMouseClick(200+(i*xsizeOfZoom1), yPosGroupButtonOne, xsizeOfGroupButton, xsizeOfGroupButton)) {
       return letters2.get(i);
     }
   }
@@ -622,21 +622,21 @@ void mousePressed()
       unzoom();
     }
   }
-  else if (!zoom && didMouseClick(zoomAreaOneX, zoomAreaY, zoomAreaTwoX - zoomAreaOneX, 365)) //check if click in first letter button
+  else if (!zoom && didMouseClick(zoomAreaOneX, zoomAreaY, zoomAreaTwoX - zoomAreaOneX, 437)) //check if click in first letter button
   {
     zoom1 = true;
     zoom = true;
     println("Zooming first area");
     zoomFirst();
   }
-  else if (!zoom && didMouseClick(zoomAreaTwoX, zoomAreaY, zoomAreaTwoX - zoomAreaOneX, 365)) //check if click in first letter button
+  else if (!zoom && didMouseClick(zoomAreaTwoX, zoomAreaY, zoomAreaTwoX - zoomAreaOneX, 437)) //check if click in first letter button
   {
     zoom2 = true;
     zoom = true;
     println("Zooming 2nd area");
     zoomSecond();
   }
-  else if (!zoom && didMouseClick(zoomAreaThreeX, zoomAreaY, zoomAreaTwoX - zoomAreaOneX, 365)) //check if click in first letter button
+  else if (!zoom && didMouseClick(zoomAreaThreeX, zoomAreaY, zoomAreaTwoX - zoomAreaOneX, 437)) //check if click in first letter button
   { 
     zoom3 = true;
     zoom = true;
