@@ -482,9 +482,9 @@ void unzoom() {
   zoom3 = false;
  xsizeOfGroupButton = 51;
  ysizeOfGroupButton = 60;
-  yPosGroupButtonOne = 220;
-  yPosGroupButtonTwo = 290;
-  yPosGroupButtonThree = 360;
+  yPosGroupButtonOne = 320;
+yPosGroupButtonTwo = 390;
+yPosGroupButtonThree = 460;
   xText = (xsizeOfGroupButton / 2); //arbitrary value of 10 to account for spacing 
   yTextOne = (yPosGroupButtonOne+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
   yTextTwo = (yPosGroupButtonTwo+ysizeOfGroupButton/2) + 15; //arbitrary value of + 5 to account for spacing
